@@ -1,0 +1,24 @@
+---
+- name: Converge
+  hosts: all
+  pre_tasks:
+    - name: Set APT cache server # LOCAL DEVELOPMENT - use cache server
+      ansible.builtin.copy:
+        src: 02proxy
+        dest: /etc/apt/apt.conf.d
+        owner: root
+        group: root
+        mode: 0644
+      when: ansible_os_family == 'Debian'
+
+    - name: Update APT cache
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 600
+      when: ansible_os_family == 'Debian'
+      changed_when: false
+
+  tasks:
+    - name: 'Include trfore.template-ansible-role'
+      include_role:
+        name: 'trfore.template-ansible-role'
