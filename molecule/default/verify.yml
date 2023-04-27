@@ -1,10 +1,15 @@
 ---
-# This is an example playbook to execute Ansible tests.
-
 - name: Verify
   hosts: all
   gather_facts: false
+
   tasks:
-    - name: Example assertion
-      ansible.builtin.assert:
-        that: true
+    - name: Test Omada SDN is running
+      ansible.builtin.uri:
+        url: https://127.0.0.1:8043/login
+        status_code: 200
+        validate_certs: false
+      register: result
+      until: result.status == 200
+      retries: 12
+      delay: 10

@@ -1,0 +1,14 @@
+---
+- name: Create 'man' directory when containerized
+  ansible.builtin.include_tasks: debian-container.yml
+  when:
+    - ansible_virtualization_type in ['docker', 'container', 'containerd']
+    - ansible_os_family == 'Debian'
+
+- name: Install essential packages for HTTPS
+  ansible.builtin.apt:
+    update_cache: true
+    name:
+      - gnupg
+      - ca-certificates
+    state: present

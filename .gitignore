@@ -1,4 +1,4 @@
-# ansible 
+# ansible
 *.retry
 */__pycache__
 *.pyc

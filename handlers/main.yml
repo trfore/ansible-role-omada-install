@@ -1,2 +1,12 @@
 ---
-# handlers file for template-ansible
+- name: Remove tar folder
+  ansible.builtin.file:
+    path: '{{ omada_tar.dest }}'
+    state: absent
+  when: omada_remove_tar_folder
+
+- name: Enable omada service
+  ansible.builtin.service:
+    name: tpeap
+    enabled: true
+    state: restarted

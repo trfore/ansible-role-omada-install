@@ -4,14 +4,14 @@ dependency:
 driver:
   name: docker
 platforms:
-  - image: ${MOLECULE_IMAGE:-trfore/docker-debian10-systemd}
+  - image: ${MOLECULE_IMAGE:-trfore/docker-ubuntu2004-systemd}
     name: ${MOLECULE_NAME:-instance}
     command: ${MOLECULE_COMMAND:-""}
     tmpfs:
       - /run
       - /tmp
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     cgroupns_mode: host
     privileged: true
     pre_build_image: true
@@ -19,53 +19,32 @@ provisioner:
   name: ansible
   playbooks:
     converge: ${MOLECULE_PLAYBOOK:-converge.yml}
-  config_options:
-    # DEVELOPMENT - log collection
-    defaults:
-      gathering: smart
-      fact_caching: jsonfile
-      fact_caching_connection: /tmp/facts_cache
-      fact_caching_timeout: 60
-    # DEVELOPMENT - keep SSH connection open
-    ssh_connection:
-      ssh_args: -o
-      ControlMaster: auto -o
-      ControlPersist: 60s
 verifier:
   name: ansible
 scenario:
   create_sequence:
-    # - dependency
+    - dependency
     - create
-    # - prepare
   check_sequence:
-    # - dependency
-    # - cleanup
+    - dependency
     - destroy
     - create
-    # - prepare
     - converge
     - check
     - destroy
   converge_sequence:
-    # - dependency
+    - dependency
     - create
-    # - prepare
     - converge
   destroy_sequence:
-    # - dependency
-    # - cleanup
+    - dependency
     - destroy
   test_sequence:
-    # - dependency
-    # - cleanup
+    - dependency
     - destroy
     - syntax
     - create
-    # - prepare
     - converge
-    - idempotence
-    # - side_effect
+    # - idempotence
     - verify
-    # - cleanup
     - destroy

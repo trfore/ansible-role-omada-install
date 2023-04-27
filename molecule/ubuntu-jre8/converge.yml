@@ -4,24 +4,23 @@
 
   vars:
     mongodb_pkg_install: true
+    omada_dependencies: ['curl', 'openjdk-8-jre-headless', 'jsvc']
 
   pre_tasks:
     - name: Update APT cache
       ansible.builtin.apt:
         update_cache: yes
-        cache_valid_time: 600
-      when: ansible_os_family == 'Debian'
+        cache_valid_time: 60
+      when: ansible_distribution == 'Ubuntu'
       changed_when: false
 
     - name: Install MongoDB Community
       ansible.builtin.include_role:
         name: trfore.mongodb_install
-
-    - name: Install jsvc
-      ansible.builtin.include_role:
-        name: trfore.jsvc
+      when: ansible_distribution == 'Ubuntu'
 
   tasks:
     - name: Install Omada SDN
       ansible.builtin.include_role:
         name: 'ansible-role-omada-install'
+      when: ansible_distribution == 'Ubuntu'

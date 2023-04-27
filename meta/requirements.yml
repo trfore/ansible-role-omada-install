@@ -1,0 +1,4 @@
+---
+roles:
+  - name: trfore.jsvc
+  - name: trfore.mongodb_install

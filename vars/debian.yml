@@ -1,0 +1,4 @@
+---
+omada_dependencies:
+  - curl
+  - openjdk-11-jre-headless # OpenJDK 11 or higher, requires JSVC 1.1.0+

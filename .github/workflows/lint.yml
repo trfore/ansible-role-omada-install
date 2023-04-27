@@ -10,6 +10,3 @@ on:
 jobs:
   lint_ansible:
     uses: trfore/ansible-role/.github/workflows/lint_ansible.yml@main # remote repo
-
-  lint_python:
-    uses: trfore/ansible-role/.github/workflows/lint_py.yml@main # remote repo
