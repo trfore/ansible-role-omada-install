@@ -22,14 +22,6 @@ You can install this role with the Ansible Galaxy CLI:
 ansible-galaxy role install trfore.omada_install
 ```
 
-You can also include it in a `requirements.yml` file and install it with `ansible-galaxy role install -r requirements.yml`, using the format:
-
-```yaml
----
-roles:
-  - trfore.omada_install
-```
-
 ## Tested Platforms and Versions
 
 - MongoDB Community: `4.4.x`
@@ -40,14 +32,17 @@ roles:
 
 ## Requirements
 
-- MongoDB Community Edition, `mongodb-org >=4.4.0`, a role for installing it via a package manager is available:
-  ```bash
-  ansible-galaxy role install trfore.mongodb_install
-  ```
-- Apache Commons Daemon, `jsvc >= 1.1.0`, a role for installing the **latest** binary is available:
+- MongoDB Community Edition, `mongodb-org >=4.4.0`, a role for installing it via a package manager is available - `trfore.jsvc`.
+- Apache Commons Daemon, `jsvc >= 1.1.0`, a role for installing the **latest** binary is available - `trfore.mongodb_install`.
+- You can install these ansible-roles by creating a `requirements.yml` file and running `ansible-galaxy install -r requirements.yml`.
 
-  ```bash
-  ansible-galaxy role install trfore.jsvc
+  ```yaml
+  # requirements.yml
+  ---
+  roles:
+    - name: trfore.jsvc
+    - name: trfore.mongodb_install
+    - name: trfore.omada_install
   ```
 
 - NOTE: For **Ubuntu 20.04** targets, this role installs **OpenJDK 11**. While `jsvc` is available via APT, it is `< 1.1.0` and will **only work with OpenJDK 8**. If you prefer to use this older version, set `omada_dependencies` to the following in your playbook (see 'Example Playbooks' section below):
@@ -85,55 +80,50 @@ OS specific variables are listed below, along with default values (see `vars/deb
 
 ```yaml
 - hosts: servers
+  become: true
   roles:
     - name: Install MongoDB Community
-      ansible.builtin.include_role:
-        name: trfore.mongodb_install
+      role: trfore.mongodb_install
 
     - name: Install jsvc Binary
-      ansible.builtin.include_role:
-        name: trfore.jsvc
+      role: trfore.jsvc
 
     - name: Install Omada SDN
-      ansible.builtin.include_role:
-        name: trfore.omada_install
+      role: trfore.omada_install
 ```
 
 - If you manually download the tar file.
 
 ```yaml
 - hosts: servers
+  become: true
   vars:
-    omada_tar_src: Omada_SDN_Controller_v5.X.X_Linux_x64.tar.gz
+    omada_tar_src: Omada_SDN_Controller_v5.*.*_Linux_x64.tar.gz
     omada_tar_src_remote: false
   roles:
     - name: Install MongoDB Community
-      ansible.builtin.include_role:
-        name: trfore.mongodb_install
+      role: trfore.mongodb_install
 
     - name: Install jsvc Binary
-      ansible.builtin.include_role:
-        name: trfore.jsvc
+      role: trfore.jsvc
 
     - name: Install Omada SDN
-      ansible.builtin.include_role:
-        name: trfore.omada_install
+      role: trfore.omada_install
 ```
 
 - If you would like to install OpenJDK JRE 8 and jsvc using APT (Ubuntu 20.04 Only)
 
 ```yaml
 - hosts: servers
+  become: true
   vars:
     omada_dependencies: ['curl', 'openjdk-8-jre-headless', 'jsvc']
   roles:
     - name: Install MongoDB Community
-      ansible.builtin.include_role:
-        name: trfore.mongodb_install
+      role: trfore.mongodb_install
 
     - name: Install Omada SDN
-      ansible.builtin.include_role:
-        name: trfore.omada_install
+      role: trfore.omada_install
       when: ansible_distribution == 'Ubuntu'
 ```
 
