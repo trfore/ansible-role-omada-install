@@ -1,7 +1,7 @@
 # Ansible Role: omada_install
 
 [![CI](https://github.com/trfore/ansible-role-omada-install/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/trfore/ansible-role-omada-install/actions/workflows/ci.yml)
-[![CD](https://github.com/trfore/ansible-role-omada-install/actions/workflows/cd.yml/badge.svg?branch=main)](https://github.com/trfore/ansible-role-omada-install/actions/workflows/cd.yml)
+[![CD](https://github.com/trfore/ansible-role-omada-install/actions/workflows/cd.yml/badge.svg)](https://github.com/trfore/ansible-role-omada-install/actions/workflows/cd.yml)
 
 Install Omada SDN controller on RedHat/CentOS and Debian/Ubuntu.
 
