@@ -17,13 +17,16 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        distro: [centos8, debian10, ubuntu2004] # limited to MongoDB 4 matrix
+        distro: [debian10, ubuntu2004] # limited to MongoDB 4 matrix
         experimental: [false]
         molecule_scenario: ["-s default"]
         include:
           - distro: ubuntu2004
             experimental: true
             molecule_scenario: "-s ubuntu-jre8"
+          - distro: centos8
+            experimental: true
+            molecule_scenario: "-s default"
     uses: trfore/ansible-role/.github/workflows/test_ansible.yml@main # remote repo
     with:
       distro: ${{ matrix.distro }}
