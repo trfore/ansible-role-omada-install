@@ -1,4 +1,4 @@
-name: Dependabot Auto-Approve and Merge
+name: Bot Auto-Approve and Merge
 on: pull_request
 
 permissions:
@@ -12,7 +12,7 @@ env:
 jobs:
   dependabot:
     runs-on: ubuntu-latest
-    if: ${{ github.actor == 'dependabot[bot]' }}
+    if: ${{ github.actor == 'dependabot[bot]' || github.actor == 'github-action[bot]' }}
     steps:
       - name: Dependabot metadata
         id: metadata
