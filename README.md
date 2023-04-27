@@ -34,7 +34,7 @@ ansible-galaxy role install trfore.omada_install
 
 - MongoDB Community Edition, `mongodb-org >=4.4.0`, a role for installing it via a package manager is available - `trfore.jsvc`.
 - Apache Commons Daemon, `jsvc >= 1.1.0`, a role for installing the **latest** binary is available - `trfore.mongodb_install`.
-- You can install these ansible-roles by creating a `requirements.yml` file and running `ansible-galaxy install -r requirements.yml`.
+- You can install these roles by creating a `requirements.yml` file and running `ansible-galaxy install -r requirements.yml`.
 
   ```yaml
   # requirements.yml
