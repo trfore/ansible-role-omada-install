@@ -32,8 +32,8 @@ ansible-galaxy role install trfore.omada_install
 
 ## Requirements
 
-- MongoDB Community Edition, `mongodb-org >=4.4.0`, a role for installing it via a package manager is available - `trfore.jsvc`.
-- Apache Commons Daemon, `jsvc >= 1.1.0`, a role for installing the **latest** binary is available - `trfore.mongodb_install`.
+- MongoDB Community Edition, `mongodb-org >=4.4.0`, a role for installing it via a package manager is available - `trfore.mongodb_install`.
+- Apache Commons Daemon, `jsvc >= 1.1.0`, a role for installing the **latest** binary is available - `trfore.jsvc`.
 - You can install these roles by creating a `requirements.yml` file and running `ansible-galaxy install -r requirements.yml`.
 
   ```yaml
@@ -135,6 +135,15 @@ MIT
 
 Taylor Fore (https://github.com/trfore)
 
+## Related Roles & Playbooks
+
+| Github                         | Ansible Galaxy           |
+| ------------------------------ | ------------------------ |
+| [ansible-role-jsvc]            | [trfore.jsvc]            |
+| [ansible-role-mongodb-install] | [trfore.mongodb_install] |
+| [ansible-role-omada-install]   | [trfore.omada_install]   |
+| [ansible-playbook-omada]       |                          |
+
 ## References
 
 ### Omada
@@ -145,3 +154,11 @@ Taylor Fore (https://github.com/trfore)
   - https://www.tp-link.com/hk/support/faq/3583/
 - Omada SDN Port List
   - https://www.tp-link.com/us/support/faq/865/
+
+[ansible-role-jsvc]: https://github.com/trfore/ansible-role-jsvc
+[trfore.jsvc]: https://galaxy.ansible.com/trfore/jsvc
+[ansible-role-mongodb-install]: https://github.com/trfore/ansible-role-mongodb-install
+[trfore.mongodb_install]: https://galaxy.ansible.com/trfore/mongodb_install
+[ansible-playbook-omada]: https://github.com/trfore/ansible-playbook-omada
+[ansible-role-omada-install]: https://github.com/trfore/ansible-role-omada-install
+[trfore.omada_install]: https://galaxy.ansible.com/trfore/omada_install
