@@ -1,0 +1,5 @@
+---
+repository:
+  description: Ansible role for installing Omada SDN controller on RedHat/CentOS and Debian/Ubuntu
+  homepage: https://galaxy.ansible.com/trfore/omada_install
+  topics: ansible-role, homelab, network, omada, omada-controller
