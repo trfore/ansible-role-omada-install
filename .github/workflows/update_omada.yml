@@ -55,7 +55,7 @@ jobs:
 
       - name: Create pull request
         if: env.UPDATE_VERSION_FILE
-        uses: peter-evans/create-pull-request@v5
+        uses: peter-evans/create-pull-request@v6
         with:
           commit-message: update omada version to ${{ steps.omada_url.outputs.latest_version }}
           title: update omada version to ${{ steps.omada_url.outputs.latest_version }}
