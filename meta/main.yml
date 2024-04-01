@@ -17,6 +17,3 @@ galaxy_info:
       versions: [focal, jammy]
 
   galaxy_tags: [networking, omada]
-  repository: https://github.com/trfore/ansible-role-omada-install
-  homepage: https://github.com/trfore/ansible-role-omada-install
-  issues: https://github.com/trfore/ansible-role-omada-install/issues
