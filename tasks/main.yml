@@ -35,10 +35,9 @@
   tags: jsvc
 
 - name: Check for jsvc binary
-  ansible.builtin.command: which jsvc
-  ignore_errors: true
+  ansible.builtin.stat:
+    path: /usr/bin/jsvc
   register: jsvc_binary
-  changed_when: jsvc_binary.rc
   tags: jsvc
 
 - name: Error when jsvc is missing
@@ -46,21 +45,20 @@
     msg: 'Error: jsvc is not present, Omada SDN requires jsvc'
   when:
     - "'jsvc' not in ansible_facts.packages"
-    - jsvc_binary.rc != 0
+    - not jsvc_binary.stat.exists
   tags: jsvc
 
 - name: Check for omada binary
-  ansible.builtin.command: which tpeap
-  ignore_errors: true
+  ansible.builtin.stat:
+    path: /usr/bin/tpeap
   register: omada_binary
-  changed_when: omada_binary.rc
 
 - name: Create a temporary directory for omada tar file
   ansible.builtin.file:
     path: '{{ omada_tar_dir }}/{{ omada_tar_folder }}'
     state: directory
     mode: '0775'
-  when: omada_binary.rc != 0
+  when: not omada_binary.stat.exists
   register: omada_temp_dir
 
 - name: Download and extract omada software
@@ -71,7 +69,7 @@
     extra_opts:
       - --strip-components=1
   register: omada_tar
-  when: omada_binary.rc != 0
+  when: not omada_binary.stat.exists
 
 - name: Run omada install script
   become: true
