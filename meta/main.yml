@@ -16,6 +16,4 @@ galaxy_info:
     - name: Ubuntu
       versions: [focal, jammy]
 
-  galaxy_tags:
-    - networking
-    - omada
+  galaxy_tags: [networking, omada]
