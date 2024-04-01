@@ -154,6 +154,9 @@ Taylor Fore (https://github.com/trfore)
   - https://www.tp-link.com/hk/support/faq/3583/
 - Omada SDN Port List
   - https://www.tp-link.com/us/support/faq/865/
+- Omada Controller - Site Migration
+  - https://www.tp-link.com/us/omada-sdn/controller-upgrade/
+  - https://www.tp-link.com/us/omada-sdn/controller-upgrade/#content-5_1_2
 
 [ansible-role-jsvc]: https://github.com/trfore/ansible-role-jsvc
 [trfore.jsvc]: https://galaxy.ansible.com/trfore/jsvc
