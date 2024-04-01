@@ -6,7 +6,7 @@ galaxy_info:
 
   license: MIT
 
-  min_ansible_version: "2.14"
+  min_ansible_version: 2.14
 
   platforms:
     - name: Debian
@@ -16,6 +16,7 @@ galaxy_info:
     - name: Ubuntu
       versions: [focal, jammy]
 
-  galaxy_tags:
-    - networking
-    - omada
+  galaxy_tags: [networking, omada]
+  repository: https://github.com/trfore/ansible-role-omada-install
+  homepage: https://github.com/trfore/ansible-role-omada-install
+  issues: https://github.com/trfore/ansible-role-omada-install/issues
