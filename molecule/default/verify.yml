@@ -2,9 +2,19 @@
 - name: Verify
   hosts: all
   gather_facts: false
-
   tasks:
-    - name: Test Omada SDN is running
+    - name: Test | Get Binary File Info
+      ansible.builtin.stat:
+        path: /usr/bin/tpeap
+      register: file_info
+
+    - name: Test | Check Omada Binary Exists
+      ansible.builtin.assert:
+        that:
+          - file_info.stat.exists
+        quiet: true
+
+    - name: Test | Check Omada SDN is running
       ansible.builtin.uri:
         url: https://127.0.0.1:8043/login
         status_code: 200
