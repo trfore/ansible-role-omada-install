@@ -2,7 +2,7 @@
 - name: Create omada user
   ansible.builtin.user:
     name: omada
-    comment: 'omada service account'
+    comment: "omada service account"
     system: true
     shell: /usr/sbin/nologin
     home: /opt/tplink/EAPController/data
@@ -16,7 +16,7 @@
 - name: Modify 'control.sh', change default 'OMADA_USER'
   ansible.builtin.lineinfile:
     path: /opt/tplink/EAPController/bin/control.sh
-    search_string: 'OMADA_USER=${OMADA_USER:-root}'
+    search_string: "OMADA_USER=${OMADA_USER:-root}"
     line: OMADA_USER=${OMADA_USER:-omada}
 
 - name: Modify 'control.sh', change 'PID_FILE' path
@@ -28,12 +28,12 @@
 - name: Modify 'control.sh', remove 'check_root_perms' func call
   ansible.builtin.lineinfile:
     path: /opt/tplink/EAPController/bin/control.sh
-    search_string: 'check_root_perms'
-    line: '#check_root_perms'
+    search_string: "check_root_perms"
+    line: "#check_root_perms"
 
 - name: Change omada directories to non-root owner & group
   ansible.builtin.file:
-    path: '{{ omada_dir }}'
+    path: "{{ omada_dir }}"
     state: directory
     recurse: true
     owner: omada

@@ -1,16 +1,16 @@
 - name: Install essential packages
-  ansible.builtin.include_tasks: '{{ ansible_os_family | lower }}.yml'
+  ansible.builtin.include_tasks: "{{ ansible_os_family | lower }}.yml"
   when: ansible_os_family == 'Debian'
 
 - name: Add OS specific variables
-  ansible.builtin.include_vars: '{{ ansible_os_family | lower }}.yml'
+  ansible.builtin.include_vars: "{{ ansible_os_family | lower }}.yml"
   when: omada_dependencies is not defined
 
 - name: Install omada dependencies
   ansible.builtin.package:
-    name: '{{ omada_dep_pkg }}'
+    name: "{{ omada_dep_pkg }}"
     state: present
-  loop: '{{ omada_dependencies }}'
+  loop: "{{ omada_dependencies }}"
   loop_control:
     loop_var: omada_dep_pkg
   register: package_status
@@ -18,16 +18,16 @@
   delay: 10
   retries: 6
 
-- name: Verify that required string variables are defined
+- name: Check Required Variables
   ansible.builtin.assert:
-    that: omada_req_var is defined and omada_req_var | length > 0 and omada_req_var != None
-    fail_msg: ' needs to be set for the role to work'
-    success_msg: 'required variable is defined'
+    that: "{{ req_var }} is defined and {{ req_var }} | length > 0 and {{ req_var }} != None"
+    fail_msg: "{{ req_var }} needs to be set for the role to work"
+    success_msg: "{{ req_var }} is defined"
+    quiet: true
   loop:
     - omada_tar_src
-    - omada_tar_src_remote
   loop_control:
-    loop_var: omada_req_var
+    loop_var: req_var
 
 - name: Gather the package facts
   ansible.builtin.package_facts:
@@ -42,7 +42,7 @@
 
 - name: Error when jsvc is missing
   ansible.builtin.fail:
-    msg: 'Error: jsvc is not present, Omada SDN requires jsvc'
+    msg: "Error: jsvc is not present, Omada SDN requires jsvc"
   when:
     - "'jsvc' not in ansible_facts.packages"
     - not jsvc_binary.stat.exists
@@ -55,17 +55,17 @@
 
 - name: Create a temporary directory for omada tar file
   ansible.builtin.file:
-    path: '{{ omada_tar_dir }}/{{ omada_tar_folder }}'
+    path: "{{ omada_tar_dir }}/{{ omada_tar_folder }}"
     state: directory
-    mode: '0775'
+    mode: "0775"
   when: not omada_binary.stat.exists
   register: omada_temp_dir
 
 - name: Download and extract omada software
   ansible.builtin.unarchive:
-    src: '{{ omada_tar_src }}'
-    dest: '{{ omada_temp_dir.path }}'
-    remote_src: '{{ omada_tar_src_remote }}'
+    src: "{{ omada_tar_src }}"
+    dest: "{{ omada_temp_dir.path }}"
+    remote_src: "{{ omada_tar_src_remote }}"
     extra_opts:
       - --strip-components=1
   register: omada_tar
@@ -73,9 +73,9 @@
 
 - name: Run omada install script
   become: true
-  ansible.builtin.command: './install.sh -y'
+  ansible.builtin.command: "./install.sh -y"
   args:
-    chdir: '{{ omada_tar.dest }}'
+    chdir: "{{ omada_tar.dest }}"
     creates: /opt/tplink/EAPController/bin/control.sh
   register: omada_install
   when: omada_tar.changed # noqa: no-handler

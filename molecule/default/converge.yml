@@ -24,4 +24,4 @@
   tasks:
     - name: Install Omada SDN
       ansible.builtin.include_role:
-        name: 'ansible-role-omada-install'
+        name: "ansible-role-omada-install"
