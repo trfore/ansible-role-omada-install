@@ -24,24 +24,24 @@
   until: package_status is success
   delay: 10
   retries: 6
+
+- name: Check for jsvc Binary
+  block:
 - name: Gather the package facts
   ansible.builtin.package_facts:
     manager: auto
-  tags: jsvc
 
-- name: Check for jsvc binary
+    - name: Check for jsvc Binary
   ansible.builtin.stat:
     path: /usr/bin/jsvc
   register: jsvc_binary
-  tags: jsvc
 
-- name: Error when jsvc is missing
+    - name: Error When jsvc Is Missing
   ansible.builtin.fail:
     msg: "Error: jsvc is not present, Omada SDN requires jsvc"
   when:
     - "'jsvc' not in ansible_facts.packages"
     - not jsvc_binary.stat.exists
-  tags: jsvc
 
 - name: Check for omada binary
   ansible.builtin.stat:
