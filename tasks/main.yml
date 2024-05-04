@@ -2,22 +2,6 @@
   ansible.builtin.include_tasks: "{{ ansible_os_family | lower }}.yml"
   when: ansible_os_family == 'Debian'
 
-- name: Add OS specific variables
-  ansible.builtin.include_vars: "{{ ansible_os_family | lower }}.yml"
-  when: omada_dependencies is not defined
-
-- name: Install omada dependencies
-  ansible.builtin.package:
-    name: "{{ omada_dep_pkg }}"
-    state: present
-  loop: "{{ omada_dependencies }}"
-  loop_control:
-    loop_var: omada_dep_pkg
-  register: package_status
-  until: package_status is success
-  delay: 10
-  retries: 6
-
 - name: Check Required Variables
   ansible.builtin.assert:
     that: "{{ req_var }} is defined and {{ req_var }} | length > 0 and {{ req_var }} != None"
@@ -29,6 +13,17 @@
   loop_control:
     loop_var: req_var
 
+- name: Install Omada Dependencies
+  ansible.builtin.package:
+    name: "{{ omada_dep_pkg }}"
+    state: present
+  loop: "{{ omada_dependencies }}"
+  loop_control:
+    loop_var: omada_dep_pkg
+  register: package_status
+  until: package_status is success
+  delay: 10
+  retries: 6
 - name: Gather the package facts
   ansible.builtin.package_facts:
     manager: auto
