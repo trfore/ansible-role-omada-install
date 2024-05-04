@@ -25,7 +25,7 @@ ansible-galaxy role install trfore.omada_install
 ## Tested Platforms and Versions
 
 - MongoDB Community: `4.4.x`
-- Omada SDN: `5.9.x`
+- Omada SDN: `5.x.x`
 - CentOS Stream 8
 - Debian 10
 - Ubuntu 20.04
@@ -48,7 +48,7 @@ ansible-galaxy role install trfore.omada_install
 - NOTE: For **Ubuntu 20.04** targets, this role installs **OpenJDK 11**. While `jsvc` is available via APT, it is `< 1.1.0` and will **only work with OpenJDK 8**. If you prefer to use this older version, set `omada_dependencies` to the following in your playbook (see 'Example Playbooks' section below):
 
   ```yaml
-  omada_dependencies: ['curl', 'openjdk-8-jre-headless', 'jsvc']
+  omada_dependencies: ["curl", "openjdk-8-jre-headless", "jsvc"]
   ```
 
 ## Role Variables
@@ -64,7 +64,7 @@ Available variables are listed below, along with default values (see `defaults/m
 | omada_non_root          | `true`     | Boolean, configure Omada SDN to run as a non-root user                         | No        |
 | omada_remove_tar_folder | `false`    | Boolean, remove the temporary directory on the remote host                     | No        |
 
-OS specific variables are listed below, along with default values (see `vars/debian.yml` and `vars/redhat.yml`):
+OS specific variables are listed below, along with default values (see `vars/main.yml`):
 
 | Variable           | Default                                       | Description                              | Required |
 | ------------------ | --------------------------------------------- | ---------------------------------------- | -------- |
@@ -117,7 +117,7 @@ OS specific variables are listed below, along with default values (see `vars/deb
 - hosts: servers
   become: true
   vars:
-    omada_dependencies: ['curl', 'openjdk-8-jre-headless', 'jsvc']
+    omada_dependencies: ["curl", "openjdk-8-jre-headless", "jsvc"]
   roles:
     - name: Install MongoDB Community
       role: trfore.mongodb_install
@@ -135,14 +135,13 @@ MIT
 
 Taylor Fore (https://github.com/trfore)
 
-## Related Roles & Playbooks
+## Related Roles
 
 | Github                         | Ansible Galaxy           |
 | ------------------------------ | ------------------------ |
 | [ansible-role-jsvc]            | [trfore.jsvc]            |
 | [ansible-role-mongodb-install] | [trfore.mongodb_install] |
 | [ansible-role-omada-install]   | [trfore.omada_install]   |
-| [ansible-playbook-omada]       |                          |
 
 ## References
 
@@ -162,6 +161,5 @@ Taylor Fore (https://github.com/trfore)
 [trfore.jsvc]: https://galaxy.ansible.com/trfore/jsvc
 [ansible-role-mongodb-install]: https://github.com/trfore/ansible-role-mongodb-install
 [trfore.mongodb_install]: https://galaxy.ansible.com/trfore/mongodb_install
-[ansible-playbook-omada]: https://github.com/trfore/ansible-playbook-omada
 [ansible-role-omada-install]: https://github.com/trfore/ansible-role-omada-install
 [trfore.omada_install]: https://galaxy.ansible.com/trfore/omada_install
