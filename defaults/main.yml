@@ -3,6 +3,5 @@
 omada_tar_src: https://static.tp-link.com/upload/software/2024/202402/20240227/Omada_SDN_Controller_v5.13.30.8_linux_x64.tar.gz
 omada_tar_src_remote: true
 omada_tar_dir: /var/tmp
-omada_tar_folder: "{{ omada_tar_src | basename | splitext | first | splitext | first }}"
 omada_non_root: true
 omada_remove_tar_folder: false

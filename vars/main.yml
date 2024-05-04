@@ -2,3 +2,4 @@
 omada_dependencies:
   - curl
   - "{{ 'java-11-openjdk-headless.x86_64' if ansible_os_family == 'RedHat' else 'openjdk-11-jre-headless' }}" # OpenJDK 11 or higher, requires JSVC 1.1.0+
+omada_tar_folder: "{{ omada_tar_src | basename | splitext | first | splitext | first }}"
