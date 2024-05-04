@@ -90,6 +90,18 @@ OS specific variables are listed below, along with default values (see `vars/mai
 
     - name: Install Omada SDN
       role: trfore.omada_install
+
+  post_tasks:
+    - name: Test Omada SDN Is Running
+      tags: ["omada", "test"]
+      ansible.builtin.uri:
+        url: https://127.0.0.1:8043/login
+        status_code: 200
+        validate_certs: false
+      register: result
+      until: result.status == 200
+      retries: 12
+      delay: 10
 ```
 
 - If you manually download the tar file.
