@@ -1,4 +1,4 @@
-- name: Install essential packages
+- name: Install Essential Packages
   ansible.builtin.include_tasks: "{{ ansible_os_family | lower }}.yml"
   when: ansible_os_family == 'Debian'
 
@@ -27,23 +27,23 @@
 
 - name: Check for jsvc Binary
   block:
-- name: Gather the package facts
-  ansible.builtin.package_facts:
-    manager: auto
+    - name: Gather the package facts
+      ansible.builtin.package_facts:
+        manager: auto
 
     - name: Check for jsvc Binary
-  ansible.builtin.stat:
-    path: /usr/bin/jsvc
-  register: jsvc_binary
+      ansible.builtin.stat:
+        path: /usr/bin/jsvc
+      register: jsvc_binary
 
     - name: Error When jsvc Is Missing
-  ansible.builtin.fail:
-    msg: "Error: jsvc is not present, Omada SDN requires jsvc"
-  when:
-    - "'jsvc' not in ansible_facts.packages"
-    - not jsvc_binary.stat.exists
+      ansible.builtin.fail:
+        msg: "Error: jsvc is not present, Omada SDN requires jsvc"
+      when:
+        - "'jsvc' not in ansible_facts.packages"
+        - not jsvc_binary.stat.exists
 
-- name: Check for omada binary
+- name: Check for Omada Binary
   ansible.builtin.stat:
     path: /usr/bin/tpeap
   register: omada_binary
@@ -52,34 +52,34 @@
   when: not omada_binary.stat.exists
   block:
     - name: Create a Temporary Directory for Omada Tar File
-  ansible.builtin.file:
-    path: "{{ omada_tar_dir }}/{{ omada_tar_folder }}"
-    state: directory
-    mode: "0775"
-  register: omada_temp_dir
+      ansible.builtin.file:
+        path: "{{ omada_tar_dir }}/{{ omada_tar_folder }}"
+        state: directory
+        mode: "0775"
+      register: omada_temp_dir
 
     - name: Download and Extract Omada Software
-  ansible.builtin.unarchive:
-    src: "{{ omada_tar_src }}"
-    dest: "{{ omada_temp_dir.path }}"
-    remote_src: "{{ omada_tar_src_remote }}"
-    extra_opts:
-      - --strip-components=1
-  register: omada_tar
+      ansible.builtin.unarchive:
+        src: "{{ omada_tar_src }}"
+        dest: "{{ omada_temp_dir.path }}"
+        remote_src: "{{ omada_tar_src_remote }}"
+        extra_opts:
+          - --strip-components=1
+      register: omada_tar
 
-- name: Run omada install script
-  become: true
-  ansible.builtin.command: "./install.sh -y"
-  args:
-    chdir: "{{ omada_tar.dest }}"
-    creates: /opt/tplink/EAPController/bin/control.sh
-  register: omada_install
-  when: omada_tar.changed # noqa: no-handler
-  notify:
-    - Remove tar folder
-    - Enable omada service
+    - name: Run Omada Install Script
+      become: true
+      ansible.builtin.command: "./install.sh -y"
+      args:
+        chdir: "{{ omada_tar.dest }}"
+        creates: /opt/tplink/EAPController/bin/control.sh
+      register: omada_install
+      when: omada_tar.changed # noqa: no-handler
+      notify:
+        - Remove tar folder
+        - Enable omada service
 
-- name: Configure omada to run as non-root user
+- name: Configure Omada to Run as Non-root User
   ansible.builtin.include_tasks: omada-non-root.yml
   when:
     - omada_install.changed # noqa: no-handler

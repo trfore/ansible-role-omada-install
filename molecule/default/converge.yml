@@ -1,10 +1,8 @@
 ---
 - name: Converge
   hosts: all
-
   vars:
     mongodb_pkg_install: true
-
   pre_tasks:
     - name: Update APT cache
       ansible.builtin.apt:

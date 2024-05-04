@@ -1,5 +1,5 @@
 ---
-- name: Create omada user
+- name: Omada Non-root | Create 'omada' User
   ansible.builtin.user:
     name: omada
     comment: "omada service account"
@@ -8,30 +8,30 @@
     home: /opt/tplink/EAPController/data
     state: present
 
-- name: Stop omada service
+- name: Omada Non-root | Stop Omada Service
   ansible.builtin.command: tpeap stop
   register: tpeap_status
   changed_when: tpeap_status.rc != 0
 
-- name: Modify 'control.sh', change default 'OMADA_USER'
+- name: Omada Non-root | Modify 'control.sh', Change Default 'OMADA_USER'
   ansible.builtin.lineinfile:
     path: /opt/tplink/EAPController/bin/control.sh
     search_string: "OMADA_USER=${OMADA_USER:-root}"
     line: OMADA_USER=${OMADA_USER:-omada}
 
-- name: Modify 'control.sh', change 'PID_FILE' path
+- name: Omada Non-root | Modify 'control.sh', Change 'PID_FILE' Path
   ansible.builtin.lineinfile:
     path: /opt/tplink/EAPController/bin/control.sh
     search_string: 'PID_FILE="/var/run/${NAME}.pid"'
     line: 'PID_FILE="${OMADA_HOME}/data/${NAME}.pid"'
 
-- name: Modify 'control.sh', remove 'check_root_perms' func call
+- name: Omada Non-root | Modify 'control.sh', Remove 'check_root_perms' Func Call
   ansible.builtin.lineinfile:
     path: /opt/tplink/EAPController/bin/control.sh
     search_string: "check_root_perms"
     line: "#check_root_perms"
 
-- name: Change omada directories to non-root owner & group
+- name: Omada Non-root | Change Omada Directories Owner & Group
   ansible.builtin.file:
     path: "{{ omada_dir }}"
     state: directory
