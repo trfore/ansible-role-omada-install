@@ -48,15 +48,17 @@
     path: /usr/bin/tpeap
   register: omada_binary
 
-- name: Create a temporary directory for omada tar file
+- name: Install Omada SDN Using Tar File
+  when: not omada_binary.stat.exists
+  block:
+    - name: Create a Temporary Directory for Omada Tar File
   ansible.builtin.file:
     path: "{{ omada_tar_dir }}/{{ omada_tar_folder }}"
     state: directory
     mode: "0775"
-  when: not omada_binary.stat.exists
   register: omada_temp_dir
 
-- name: Download and extract omada software
+    - name: Download and Extract Omada Software
   ansible.builtin.unarchive:
     src: "{{ omada_tar_src }}"
     dest: "{{ omada_temp_dir.path }}"
@@ -64,7 +66,6 @@
     extra_opts:
       - --strip-components=1
   register: omada_tar
-  when: not omada_binary.stat.exists
 
 - name: Run omada install script
   become: true
