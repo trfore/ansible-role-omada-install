@@ -1,8 +1,17 @@
 ---
 - name: Verify
   hosts: all
-  gather_facts: false
+  gather_facts: true
+  vars:
+    jdk_pkg: "{{ 'java-11-openjdk-headless' if ansible_os_family == 'RedHat' else 'openjdk-11-jre-headless' }}"
   tasks:
+    - name: Test | Gather Package Facts
+      ansible.builtin.package_facts:
+
+    - name: Test | Check OpenJDK Package
+      ansible.builtin.assert:
+        that: "jdk_pkg in ansible_facts.packages"
+
     - name: Test | Get Binary File Info
       ansible.builtin.stat:
         path: /usr/bin/tpeap
