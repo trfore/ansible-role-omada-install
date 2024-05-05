@@ -1,4 +1,0 @@
----
-omada_dependencies:
-  - curl
-  - java-11-openjdk-headless.x86_64

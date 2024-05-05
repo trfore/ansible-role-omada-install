@@ -1,6 +1,12 @@
 ---
-- name: Create 'man' directory when containerized
-  ansible.builtin.include_tasks: debian-container.yml
+# openjdk dep issue when installed in a container without man directory
+# ref: https://github.com/geerlingguy/ansible-role-java/issues/64
+# sol: https://github.com/geerlingguy/ansible-role-java/commit/ee7c12b13aa594dc747892860e563f45794e94d0
+- name: Ensure 'man' Directory Exists (Debian & Ubuntu)
+  ansible.builtin.file:
+    path: /usr/share/man/man1
+    state: directory
+    recurse: true
   when:
     - ansible_virtualization_type in ['docker', 'container', 'containerd']
     - ansible_os_family == 'Debian'

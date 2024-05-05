@@ -4,7 +4,7 @@
 
   vars:
     mongodb_pkg_install: true
-    omada_dependencies: ['curl', 'openjdk-8-jre-headless', 'jsvc']
+    omada_dependencies: ["curl", "openjdk-8-jre-headless", "jsvc"]
 
   pre_tasks:
     - name: Update APT cache
@@ -22,5 +22,5 @@
   tasks:
     - name: Install Omada SDN
       ansible.builtin.include_role:
-        name: 'ansible-role-omada-install'
+        name: "ansible-role-omada-install"
       when: ansible_distribution == 'Ubuntu'

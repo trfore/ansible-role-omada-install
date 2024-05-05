@@ -1,7 +1,7 @@
 ---
 - name: Remove tar folder
   ansible.builtin.file:
-    path: '{{ omada_tar.dest }}'
+    path: "{{ omada_tar.dest }}"
     state: absent
   when: omada_remove_tar_folder
 
