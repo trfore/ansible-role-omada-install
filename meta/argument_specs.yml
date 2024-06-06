@@ -1,0 +1,34 @@
+# roles/omada_install/meta/argument_specs.yml
+---
+argument_specs:
+  main:
+    short_description: Install Omada SDN controller
+    description:
+      - Install Omada SDN controller on RedHat/CentOS and Debian/Ubuntu.
+      - The default values will install the latest Omada SDN controller software using the latest tarball from https://www.tp-link.com/us/support/download/omada-software-controller/.
+      - Optionally for Debian and Ubuntu, you can install the software using the .deb package, set `omada_pkg_install` to `true`.
+    options:
+      omada_non_root:
+        type: "bool"
+        default: true
+        description: "Configure Omada SDN to run as a non-root user."
+
+      omada_remove_tar_folder:
+        type: "bool"
+        default: false
+        description: "Remove the temporary directory, `omada_tar_dir`, on the remote host."
+
+      omada_tar_dir:
+        type: "path"
+        default: /var/tmp
+        description: "Temporary directory on the target host for extracting and installing Omada SDN."
+
+      omada_tar_src:
+        type: "str"
+        default: "https://static.tp-link.com/upload/software/[LATEST_TAR_FILE]"
+        description: "Omada SDN tar file, URL or relative path. Can be overridden in playbook."
+
+      omada_tar_src_remote:
+        type: "bool"
+        default: true
+        description: "Set to `true` if downloading tar file from remote source."
