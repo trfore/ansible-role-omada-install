@@ -5,16 +5,20 @@
 
 Install Omada SDN controller on RedHat/CentOS and Debian/Ubuntu.
 
-This role installs the latest Omada SDN controller software using the latest tarball from https://www.tp-link.com/us/support/download/omada-software-controller/.
+This role installs the latest Omada SDN controller software using the latest tarball from [TP-Link (link)](https://www.tp-link.com/us/support/download/omada-software-controller/).
 
-If you would like to manually download the tarball to your Ansible control host, download the `Omada_SDN_Controller_v5.*.*_Linux_x64.tar.gz`, to your `files` directory and set the following two variables in your playbook:
+If you would like to manually download the tarball to your Ansible control host, download the
+`Omada_SDN_Controller_v5.*.*_Linux_x64.tar.gz`, to your `files` directory and set the following two variables in your
+playbook:
 
 - `omada_tar_src: Omada_SDN_Controller_v5.*.*_Linux_x64.tar.gz`
 - `omada_tar_src_remote: false`
 
-See 'Example Playbooks' section for working examples. This role **does not configure the Omada controller**, it uses the default configuration values. It does set the service to run as a non-root user, you can change this by setting `omada_non_root: false`.
+See 'Example Playbooks' section for working examples. This role **does not configure the Omada controller**, it uses the
+default configuration values. It does set the service to run as a non-root user, you can change this by setting
+`omada_non_root: false`.
 
-### Install the Role
+## Install the Role
 
 You can install this role with the Ansible Galaxy CLI:
 
@@ -32,9 +36,11 @@ ansible-galaxy role install trfore.omada_install
 
 ## Requirements
 
-- MongoDB Community Edition, `mongodb-org >=4.4.0`, a role for installing it via a package manager is available - `trfore.mongodb_install`.
+- MongoDB Community Edition, `mongodb-org >=4.4.0`, a role for installing it via a package manager is available -
+  `trfore.mongodb_install`.
 - Apache Commons Daemon, `jsvc >= 1.1.0`, a role for installing the **latest** binary is available - `trfore.jsvc`.
-- You can install these roles by creating a `requirements.yml` file and running `ansible-galaxy install -r requirements.yml`.
+- You can install these roles by creating a `requirements.yml` file and running
+  `ansible-galaxy install -r requirements.yml`.
 
   ```yaml
   # requirements.yml
@@ -45,7 +51,9 @@ ansible-galaxy role install trfore.omada_install
     - name: trfore.omada_install
   ```
 
-- NOTE: For **Ubuntu 20.04** targets, this role installs **OpenJDK 11**. While `jsvc` is available via APT, it is `< 1.1.0` and will **only work with OpenJDK 8**. If you prefer to use this older version, set `omada_dependencies` to the following in your playbook (see 'Example Playbooks' section below):
+- NOTE: For **Ubuntu 20.04** targets, this role installs **OpenJDK 11**. While `jsvc` is available via APT, it is
+  `< 1.1.0` and will **only work with OpenJDK 8**. If you prefer to use this older version, set `omada_dependencies` to
+  the following in your playbook (see 'Example Playbooks' section below):
 
   ```yaml
   omada_dependencies: ["curl", "openjdk-8-jre-headless", "jsvc"]
@@ -145,7 +153,7 @@ MIT
 
 ## Author Information
 
-Taylor Fore (https://github.com/trfore)
+Taylor Fore (<https://github.com/trfore>)
 
 ## Related Roles
 
@@ -159,15 +167,15 @@ Taylor Fore (https://github.com/trfore)
 
 ### Omada
 
-- https://www.tp-link.com/us/support/download/omada-software-controller/
-- https://www.tp-link.com/us/support/faq/3272/
+- <https://www.tp-link.com/us/support/download/omada-software-controller/>
+- <https://www.tp-link.com/us/support/faq/3272/>
 - Run Omada SDN as non-root
-  - https://www.tp-link.com/hk/support/faq/3583/
+  - <https://www.tp-link.com/hk/support/faq/3583/>
 - Omada SDN Port List
-  - https://www.tp-link.com/us/support/faq/865/
+  - <https://www.tp-link.com/us/support/faq/865/>
 - Omada Controller - Site Migration
-  - https://www.tp-link.com/us/omada-sdn/controller-upgrade/
-  - https://www.tp-link.com/us/omada-sdn/controller-upgrade/#content-5_1_2
+  - <https://www.tp-link.com/us/omada-sdn/controller-upgrade/>
+  - <https://www.tp-link.com/us/omada-sdn/controller-upgrade/#content-5_1_2>
 
 [ansible-role-jsvc]: https://github.com/trfore/ansible-role-jsvc
 [trfore.jsvc]: https://galaxy.ansible.com/trfore/jsvc

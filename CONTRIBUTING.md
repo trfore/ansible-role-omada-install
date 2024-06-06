@@ -25,7 +25,8 @@ tox -e py-ansible2.16-ubuntu20 run
 tox run-parallel
 ```
 
-- For iterative development and testing, the tox molecule environments are written to accept `molecule` arguments. This allows for codebase changes to be tested as you write across multiple distros and versions of `ansible-core`.
+- For iterative development and testing, the tox molecule environments are written to accept `molecule` arguments. This
+  allows for codebase changes to be tested as you write across multiple distros and versions of `ansible-core`.
 
 ```sh
 # molecule converge
