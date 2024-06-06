@@ -37,7 +37,7 @@ jobs:
           - distro: centos8
             experimental: true
             molecule_scenario: "-s default"
-    uses: trfore/ansible-role/.github/workflows/test_ansible.yml@main # remote repo
+    uses: ./.github/workflows/test.yml
     with:
       distro: ${{ matrix.distro }}
       experimental: ${{ matrix.experimental }}
