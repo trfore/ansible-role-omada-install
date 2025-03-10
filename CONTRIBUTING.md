@@ -19,10 +19,15 @@ pre-commit run --all-files
 tox list
 # lint all files
 tox -e lint run
+
 # run a specific test environment
 tox -e py-ansible2.16-ubuntu20 run
+
 # run all test in parallel
 tox run-parallel
+
+# pass Ansible Molecule args via Tox
+tox -e py-ansible2.16-ubuntu20 run -- test --destroy=never
 ```
 
 - For iterative development and testing, the tox molecule environments are written to accept `molecule` arguments. This allows for codebase changes to be tested as you write across multiple distros and versions of `ansible-core`.
