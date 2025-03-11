@@ -42,5 +42,6 @@
     - /opt/tplink/EAPController/data
     - /opt/tplink/EAPController/logs
     - /opt/tplink/EAPController/work
+    - /opt/tplink/EAPController/properties
   loop_control:
     loop_var: omada_dir

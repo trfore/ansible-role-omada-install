@@ -24,15 +24,17 @@ ansible-galaxy role install trfore.omada_install
 
 ## Tested Platforms and Versions
 
-- MongoDB Community: `4.4.x`
+- MongoDB Community: `7.0.x`
 - Omada SDN: `5.x.x`
-- CentOS Stream 8
-- Debian 10
-- Ubuntu 20.04
+- CentOS Stream 9
+- Debian 11
+- Ubuntu 20.04 & 22.04
 
 ## Requirements
 
-- MongoDB Community Edition, `mongodb-org >=4.4.0`, a role for installing it via a package manager is available - `trfore.mongodb_install`.
+- MongoDB Community Edition, a role for installing it via a package manager is available - `trfore.mongodb_install`.
+  - Omada SDN `< 5.14.20` only supported MongoDB 3 and 4.
+  - Omada SDN `>=5.14.20` now support up to MongoDB 7.
 - Apache Commons Daemon, `jsvc >= 1.1.0`, a role for installing the **latest** binary is available - `trfore.jsvc`.
 - You can install these roles by creating a `requirements.yml` file and running `ansible-galaxy install -r requirements.yml`.
 
