@@ -27,14 +27,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        distro: [debian10, ubuntu2004] # limited to MongoDB 4 matrix
+        distro: [debian11, ubuntu2004, ubuntu2204] # limited by MongoDB 7 matrix
         experimental: [false]
         molecule_scenario: ["-s default"]
         include:
-          - distro: ubuntu2004
-            experimental: true
-            molecule_scenario: "-s ubuntu-jre8"
-          - distro: centos8
+          - distro: centos9
             experimental: true
             molecule_scenario: "-s default"
     uses: ./.github/workflows/test.yml
