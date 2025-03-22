@@ -69,7 +69,7 @@
 
     - name: Run Omada Install Script
       become: true
-      ansible.builtin.command: "./install.sh -y"
+      ansible.builtin.shell: yes | ./install.sh
       args:
         chdir: "{{ omada_tar.dest }}"
         creates: /opt/tplink/EAPController/bin/control.sh

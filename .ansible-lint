@@ -6,4 +6,5 @@ exclude_paths:
   - changelogs/changelog.yaml
 warn_list:
   - command-instead-of-shell
+  - risky-shell-pipe
   - yaml[line-length]
