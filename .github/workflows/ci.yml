@@ -29,11 +29,14 @@ jobs:
       matrix:
         distro: [debian11, ubuntu2004, ubuntu2204] # limited by MongoDB 7 matrix
         experimental: [false]
-        molecule_scenario: ["-s default"]
+        molecule_scenario: ["-s default", "-s root-user"]
         include:
           - distro: centos9
             experimental: true
             molecule_scenario: "-s default"
+          - distro: centos9
+            experimental: true
+            molecule_scenario: "-s root-user"
     uses: ./.github/workflows/test.yml
     with:
       distro: ${{ matrix.distro }}
