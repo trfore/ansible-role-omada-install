@@ -110,7 +110,11 @@ OS specific variables are listed below, along with default values (see `vars/mai
       delay: 10
 ```
 
-- If you manually download the tar file.
+<details>
+  <summary>Example Playbook: Use Tarfile on Ansible Controller</summary>
+
+- First [download the tarfile](https://www.tp-link.com/us/support/download/omada-software-controller/) to your Ansible controller
+- Add the path to `omada_tar_src: MY/PATH/Omada.tar` and set `omada_tar_src_remote: false`.
 
 ```yaml
 - hosts: servers
@@ -129,7 +133,34 @@ OS specific variables are listed below, along with default values (see `vars/mai
       role: trfore.omada_install
 ```
 
-- If you would like to install OpenJDK JRE 8 and jsvc using APT (Ubuntu 20.04 Only)
+</details>
+
+<details>
+  <summary>Example Playbook: Deploy Omada Cluster</summary>
+
+```yaml
+- hosts: servers
+  become: true
+  vars:
+    omada_cluster: true
+  roles:
+    - name: Install MongoDB Community
+      role: trfore.mongodb_install
+
+    - name: Install jsvc Binary
+      role: trfore.jsvc
+
+    - name: Install Omada SDN
+      role: trfore.omada_install
+```
+
+</details>
+
+<details>
+  <summary>Example Playbook: Using Java 8 (Ubuntu 20.04 Only)</summary>
+
+- Set `omada_dependencies` to `["curl", "openjdk-8-jre-headless", "jsvc"]` and the role will install
+  OpenJDK JRE 8 and jsvc via APT.
 
 ```yaml
 - hosts: servers
@@ -144,6 +175,8 @@ OS specific variables are listed below, along with default values (see `vars/mai
       role: trfore.omada_install
       when: ansible_distribution == 'Ubuntu'
 ```
+
+</details>
 
 ## License
 
@@ -165,19 +198,17 @@ Taylor Fore (https://github.com/trfore)
 
 ### Omada
 
-- https://www.tp-link.com/us/support/download/omada-software-controller/
-- https://www.tp-link.com/us/support/faq/3272/
-- Run Omada SDN as non-root
-  - https://www.tp-link.com/hk/support/faq/3583/
-- Omada SDN Port List
-  - https://www.tp-link.com/us/support/faq/865/
-- Omada Controller - Site Migration
-  - https://www.tp-link.com/us/omada-sdn/controller-upgrade/
-  - https://www.tp-link.com/us/omada-sdn/controller-upgrade/#content-5_1_2
+- [Omada Controller - Cluster Mode]
+- [Omada Controller - Download](https://www.tp-link.com/us/support/download/omada-software-controller/)
+- [Omada Controller - Linux Install](https://www.tp-link.com/us/support/faq/3272/)
+- [Omada Controller - Run Omada SDN as non-root](https://www.tp-link.com/hk/support/faq/3583/)
+- [Omada Controller - Site Migration](https://www.tp-link.com/us/support/faq/3589/)
+- [Omada EAP Port List](https://www.tp-link.com/us/support/faq/865/)
 
 [ansible-role-jsvc]: https://github.com/trfore/ansible-role-jsvc
-[trfore.jsvc]: https://galaxy.ansible.com/trfore/jsvc
 [ansible-role-mongodb-install]: https://github.com/trfore/ansible-role-mongodb-install
-[trfore.mongodb_install]: https://galaxy.ansible.com/trfore/mongodb_install
 [ansible-role-omada-install]: https://github.com/trfore/ansible-role-omada-install
+[trfore.jsvc]: https://galaxy.ansible.com/trfore/jsvc
+[trfore.mongodb_install]: https://galaxy.ansible.com/trfore/mongodb_install
 [trfore.omada_install]: https://galaxy.ansible.com/trfore/omada_install
+[Omada Controller - Cluster Mode]: https://www.omadanetworks.com/us/support/faq/4347/
