@@ -69,7 +69,7 @@
 
     - name: Run Omada Install Script
       become: true
-      ansible.builtin.shell: yes | ./install.sh
+      ansible.builtin.shell: yes | {{ omada_install_cmd }}
       args:
         chdir: "{{ omada_tar.dest }}"
         creates: /opt/tplink/EAPController/bin/control.sh
@@ -77,7 +77,11 @@
       failed_when: omada_install.rc >= 1
       notify:
         - Remove tar folder
-        - Enable omada service
+
+    - name: Enable Omada on Single Controller Installs
+      ansible.builtin.assert: { that: true, quiet: true }
+      when: not omada_cluster
+      notify: Enable omada service
 
 - name: Configure Omada to Run as Non-root User
   ansible.builtin.include_tasks: omada-non-root.yml
