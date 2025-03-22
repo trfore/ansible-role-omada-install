@@ -4,6 +4,7 @@ omada_tar_src: https://static.tp-link.com/upload/software/2025/202503/20250321/O
 omada_tar_src_remote: true
 omada_tar_dir: /var/tmp
 omada_cluster: false
+omada_cluster_init: false
 omada_cluster_nodes:
   - name: node1
     ipv4: null

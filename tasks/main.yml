@@ -67,6 +67,14 @@
           - --strip-components=1
       register: omada_tar
 
+    - name: Configure Server for Omada Cluster Mode
+      community.general.pam_limits:
+        domain: "*"
+        limit_type: "-" # soft and hard
+        limit_item: nofile
+        value: 65535
+      when: omada_cluster
+
     - name: Run Omada Install Script
       become: true
       ansible.builtin.shell: yes | {{ omada_install_cmd }}
@@ -88,3 +96,8 @@
   when:
     - omada_install.changed # noqa: no-handler
     - omada_non_root
+
+- name: Initialize Omada Cluster
+  ansible.builtin.include_tasks: omada-cluster-init.yml
+  when:
+    - omada_cluster_init
