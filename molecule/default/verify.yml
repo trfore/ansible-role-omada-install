@@ -3,7 +3,7 @@
   hosts: all
   gather_facts: true
   vars:
-    jdk_pkg: "{{ 'java-11-openjdk-headless' if ansible_os_family == 'RedHat' else 'openjdk-11-jre-headless' }}"
+    jdk_pkg: "{{ 'java-17-openjdk-headless' if ansible_os_family == 'RedHat' else 'openjdk-17-jre-headless' }}"
   tasks:
     - name: Test | Gather Package Facts
       ansible.builtin.package_facts:

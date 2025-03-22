@@ -14,6 +14,10 @@ If you would like to manually download the tarball to your Ansible control host,
 
 See 'Example Playbooks' section for working examples. This role **does not configure the Omada controller**, it uses the default configuration values. It does set the service to run as a non-root user, you can change this by setting `omada_non_root: false`.
 
+### Java Requirements
+
+- Starting with Omada SDN `>=v5.15.20`, Java 17 is required and installed with this role.
+
 ### Install the Role
 
 You can install this role with the Ansible Galaxy CLI:
@@ -34,7 +38,7 @@ ansible-galaxy role install trfore.omada_install
 
 - MongoDB Community Edition, a role for installing it via a package manager is available - `trfore.mongodb_install`.
   - Omada SDN `< 5.14.20` only supported MongoDB 3 and 4.
-  - Omada SDN `>=5.14.20` now support up to MongoDB 7.
+  - Omada SDN `>=5.14.20` now supports up to MongoDB 7.
 - Apache Commons Daemon, `jsvc >= 1.1.0`, a role for installing the **latest** binary is available - `trfore.jsvc`.
 - You can install these roles by creating a `requirements.yml` file and running `ansible-galaxy install -r requirements.yml`.
 
@@ -47,7 +51,7 @@ ansible-galaxy role install trfore.omada_install
     - name: trfore.omada_install
   ```
 
-- NOTE: For **Ubuntu 20.04** targets, this role installs **OpenJDK 11**. While `jsvc` is available via APT, it is `< 1.1.0` and will **only work with OpenJDK 8**. If you prefer to use this older version, set `omada_dependencies` to the following in your playbook (see 'Example Playbooks' section below):
+- NOTE: For **Ubuntu 20.04** targets, this role installs **OpenJDK 17**. While `jsvc` is available via APT, it is `< 1.1.0` and will **only work with OpenJDK 8**. If you prefer to use this older version, set `omada_dependencies` to the following in your playbook (see 'Example Playbooks' section below):
 
   ```yaml
   omada_dependencies: ["curl", "openjdk-8-jre-headless", "jsvc"]
@@ -70,8 +74,8 @@ OS specific variables are listed below, along with default values (see `vars/mai
 
 | Variable           | Default                                       | Description                              | Required |
 | ------------------ | --------------------------------------------- | ---------------------------------------- | -------- |
-| omada_dependencies | `["curl", "openjdk-11-jre-headless"]`         | Required packages for Omada SDN (Debian) | No       |
-| omada_dependencies | `["curl", "java-11-openjdk-headless.x86_64"]` | Required packages for Omada SDN (RHEL)   | No       |
+| omada_dependencies | `["curl", "openjdk-17-jre-headless"]`         | Required packages for Omada SDN (Debian) | No       |
+| omada_dependencies | `["curl", "java-17-openjdk-headless.x86_64"]` | Required packages for Omada SDN (RHEL)   | No       |
 
 ## Dependencies
 
