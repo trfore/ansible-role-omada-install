@@ -1,0 +1,32 @@
+---
+- name: Converge
+  hosts: omada_cluster
+  vars:
+    mongodb_pkg_install: true
+    omada_cluster: true
+  pre_tasks:
+    - name: Update APT cache
+      ansible.builtin.apt:
+        update_cache: yes
+        cache_valid_time: 600
+      when: ansible_os_family == 'Debian'
+      changed_when: false
+
+    - name: Remove `curl-minimal` from Container OS
+      ansible.builtin.package:
+        name: curl-minimal
+        state: absent
+      when: ansible_os_family == 'RedHat' and ansible_virtualization_type in ['docker', 'container', 'containerd']
+
+    - name: Install MongoDB Community
+      ansible.builtin.include_role:
+        name: trfore.mongodb_install
+
+    - name: Install jsvc
+      ansible.builtin.include_role:
+        name: trfore.jsvc
+
+  tasks:
+    - name: Install Omada SDN
+      ansible.builtin.include_role:
+        name: "ansible-role-omada-install"
