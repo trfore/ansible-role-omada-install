@@ -99,5 +99,4 @@
 
 - name: Initialize Omada Cluster
   ansible.builtin.include_tasks: omada-cluster-init.yml
-  when:
-    - omada_cluster_init
+  when: omada_cluster_init
