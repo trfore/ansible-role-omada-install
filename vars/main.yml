@@ -1,6 +1,11 @@
 ---
+omada_cluster_config_path: "/opt/tplink/EAPController/data/cluster/omada_distributed_internal_mongo_cluster.properties"
 omada_dependencies:
   - curl
   - "{{ 'java-17-openjdk-headless.x86_64' if ansible_os_family == 'RedHat' else 'openjdk-17-jre-headless' }}" # OpenJDK 11 or higher, requires JSVC 1.1.0+
+omada_cluster_dependencies:
+  - "{{ 'iputils' if ansible_os_family == 'RedHat' else 'iputils-ping' }}"
+  - lsof
+  - python3-pexpect
 omada_install_cmd: "{{ './install.sh init-cluster-mode' if omada_cluster else './install.sh' }}"
 omada_tar_folder: "{{ omada_tar_src | basename | splitext | first | splitext | first }}"
