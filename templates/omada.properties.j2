@@ -1,0 +1,25 @@
+{% set omada_cluster_nodes = node_ips | dict2items(key_name='name', value_name='ip') %}
+## local cluster config
+# Cluster mode, distributed: Distributed Cluster
+omada.cluster.mode=distributed
+# internal: internal mongodb server
+omada.cluster.distributed.mongo.mode=internal
+
+## Distributed Cluster Config
+## Please edit:
+omada.cluster.distributed.mongo.replset.name=omadaReplSet
+
+# Cluster member names list
+omada.cluster.distributed.names={{ omada_cluster_nodes | selectattr('name', 'defined') | map(attribute='name') | join(',') }}
+
+# To preserve the data node, if not configured, it defaults to 'node1'.
+# It can only be a node with a mixed node role.
+omada.cluster.distributed.primary.data.node={{ omada_cluster_nodes[0].name }}
+
+# Role Values
+# mixed: node that provides service with data (at least 3 mixed nodes).
+# service: node that only provides service without data.
+{% for item in omada_cluster_nodes %}
+  omada.cluster.distributed.{{ item.name }}.host={{ item.ip }}
+  omada.cluster.distributed.{{ item.name }}.role=mixed
+{% endfor %}
