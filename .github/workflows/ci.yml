@@ -37,6 +37,12 @@ jobs:
           - distro: centos9
             experimental: true
             molecule_scenario: "-s root-user"
+          - distro: centos9
+            experimental: true
+            molecule_scenario: "-s cluster"
+          - distro: ubuntu2204
+            experimental: true
+            molecule_scenario: "-s cluster"
     uses: ./.github/workflows/test.yml
     with:
       distro: ${{ matrix.distro }}
