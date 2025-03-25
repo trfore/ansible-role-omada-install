@@ -1,0 +1,34 @@
+---
+- name: Verify
+  hosts: all
+  gather_facts: true
+  vars:
+    jdk_pkg: "{{ 'java-17-openjdk-headless' if ansible_os_family == 'RedHat' else 'openjdk-17-jre-headless' }}"
+  tasks:
+    - name: Test | Gather Package Facts
+      ansible.builtin.package_facts:
+
+    - name: Test | Check OpenJDK Package
+      ansible.builtin.assert:
+        that: "jdk_pkg in ansible_facts.packages"
+
+    - name: Test | Get Binary File Info
+      ansible.builtin.stat:
+        path: /usr/bin/tpeap
+      register: file_info
+
+    - name: Test | Check Omada Binary Exists
+      ansible.builtin.assert:
+        that:
+          - file_info.stat.exists
+        quiet: true
+
+    - name: Test | Check Omada SDN is running
+      ansible.builtin.uri:
+        url: https://127.0.0.1:8043/login
+        status_code: 200
+        validate_certs: false
+      register: result
+      until: result.status == 200
+      retries: 12
+      delay: 10

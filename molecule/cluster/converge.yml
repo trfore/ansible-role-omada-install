@@ -1,9 +1,13 @@
 ---
 - name: Converge
   hosts: omada_cluster
+  gather_facts: true
   vars:
     mongodb_pkg_install: true
     omada_cluster: true
+    omada_cluster_init: true
+    omada_cluster_user: admin
+    omada_cluster_password: Password1
   pre_tasks:
     - name: Update APT cache
       ansible.builtin.apt:
