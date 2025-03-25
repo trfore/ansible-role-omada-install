@@ -1,0 +1,51 @@
+- name: Cluster | Check Required Variables
+  ansible.builtin.assert:
+    that: "{{ req_var }} is defined and {{ req_var }} | length > 0 and {{ req_var }} != None"
+    fail_msg: "{{ req_var }} needs to be set for the role to work"
+    success_msg: "{{ req_var }} is defined"
+    quiet: true
+  loop:
+    - omada_cluster_user
+    - omada_cluster_password
+  loop_control:
+    loop_var: req_var
+  no_log: true
+
+- name: Cluster | Install Package Dependencies
+  ansible.builtin.package:
+    name: "{{ cluster_dep_pkg }}"
+    state: present
+  loop: "{{ omada_cluster_dependencies }}"
+  loop_control:
+    loop_var: cluster_dep_pkg
+  register: package_status
+  until: package_status is success
+  delay: 10
+  retries: 6
+
+- name: Cluster | Get Node IPs
+  ansible.builtin.set_fact:
+    node_ips: "{{ dict(ansible_play_hosts | zip(ansible_play_hosts | map('extract', hostvars, 'ansible_default_ipv4') | map(attribute='address'))) }}"
+  delegate_to: ansible_play_hosts[0]
+  run_once: true
+
+- name: Cluster | Create Configuration File
+  ansible.builtin.template:
+    src: omada.properties.j2
+    dest: "{{ omada_cluster_config_path }}"
+    owner: "{{ 'omada' if omada_non_root else 'root' }}"
+    group: "{{ 'omada' if omada_non_root else 'root' }}"
+    mode: "0644"
+
+- name: Cluster | Initialize
+  ansible.builtin.expect:
+    command: omadacluster -config {{ omada_cluster_config_path }} -node {{ ansible_hostname }} init
+    responses:
+      "Please enter your cluster username":
+        - "{{ omada_cluster_user }}"
+      "Please enter your cluster password":
+        - "{{ omada_cluster_password }}"
+      "Please confirm your cluster username ({{ omada_cluster_user }}), and enter your cluster password again":
+        - "{{ omada_cluster_password }}"
+  notify: Enable omada service
+  no_log: false
