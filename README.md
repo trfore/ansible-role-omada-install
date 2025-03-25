@@ -17,11 +17,13 @@ See 'Example Playbooks' section for working examples. This role **does not confi
 ## Omada Requirements
 
 - Starting with Omada SDN `>=v5.15.20`, **Java 17** is required and installed with this role.
+- Linux Packages: `curl`
 
 ### Cluster Requirements
 
 - 3 nodes with static IPs.
 - Java 17 with consistent JDK and MongoDB versions across all nodes.
+- Linux Packages (installed by the role): `iputils`, `lsof`, `python3-pexpect`
 
 ### Install the Role
 
@@ -90,6 +92,8 @@ OS specific variables are listed below, along with default values (see `vars/mai
 
 - Apache Commons Daemon, `jsvc >= 1.1.0`
 - MongoDB Community Edition `mongodb-org >=4.4.0`
+- Linux Packages: `curl`
+- Linux Packages (Cluster Mode): `lsof`, `iputils-ping`
 
 ## Example Playbooks
 
@@ -147,11 +151,16 @@ OS specific variables are listed below, along with default values (see `vars/mai
 <details>
   <summary>Example Playbook: Deploy Omada Cluster</summary>
 
+- If `omada_cluster_init: true`, the role will automatically use the name and IP address from Ansible's inventory file;
+  and set the first inventory item as the primary node.
+
 ```yaml
 - hosts: servers
   become: true
+  gather_facts: true
   vars:
     omada_cluster: true
+    omada_cluster_init: true
   roles:
     - name: Install MongoDB Community
       role: trfore.mongodb_install
