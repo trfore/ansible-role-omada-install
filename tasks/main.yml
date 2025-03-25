@@ -69,12 +69,12 @@
 
     - name: Run Omada Install Script
       become: true
-      ansible.builtin.command: "./install.sh -y"
+      ansible.builtin.shell: yes | ./install.sh
       args:
         chdir: "{{ omada_tar.dest }}"
         creates: /opt/tplink/EAPController/bin/control.sh
       register: omada_install
-      when: omada_tar.changed # noqa: no-handler
+      failed_when: omada_install.rc >= 1
       notify:
         - Remove tar folder
         - Enable omada service
