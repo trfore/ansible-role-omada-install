@@ -11,6 +11,7 @@
 *.deb
 *.tgz
 *.tar.gz*
+*.test
 
 # ansible docs - sphinx local build files
 docs/rst
@@ -22,7 +23,7 @@ docs/requirements.txt
 
 # general extras
 .DS_Store
-.private
+*.private
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
