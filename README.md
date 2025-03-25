@@ -66,17 +66,18 @@ ansible-galaxy role install trfore.omada_install
 
 Available variables are listed below, along with default values (see `defaults/main.yml`):
 
-| Variable                | Default    | Description                                                                    | Required               |
-| ----------------------- | ---------- | ------------------------------------------------------------------------------ | ---------------------- |
-| omada_tar_src           | URL        | Omada SDN tar file, URL or relative path                                       | No                     |
-| omada_tar_src_remote    | `true`     | Boolean, `true` if downloading from URL                                        | No                     |
-| omada_tar_dir           | `/var/tmp` | Temporary directory on the target host for extracting and installing Omada SDN | No                     |
-| omada_tar_folder        | Automatic  | Determined from the `omada_tar_src` variable                                   | Automatic              |
-| omada_cluster           | `false`    | Boolean, configure Omada SDN to run in cluster mode                            | No                     |
-| omada_cluster_init      | `false`    | Boolean, initialize the Omada cluster                                          | No                     |
-| omada_cluster_nodes     | See Below  | List of Dictionaries, node name, IPv4 and mode                                 | Yes\* for cluster mode |
-| omada_non_root          | `true`     | Boolean, configure Omada SDN to run as a non-root user                         | No                     |
-| omada_remove_tar_folder | `false`    | Boolean, remove the temporary directory on the remote host                     | No                     |
+| Variable                | Default    | Description                                                                                 | Required             |
+| ----------------------- | ---------- | ------------------------------------------------------------------------------------------- | -------------------- |
+| omada_tar_src           | URL        | Omada SDN tar file, URL or relative path                                                    | No                   |
+| omada_tar_src_remote    | `true`     | Boolean, `true` if downloading from URL                                                     | No                   |
+| omada_tar_dir           | `/var/tmp` | Temporary directory on the target host for extracting and installing Omada SDN              | No                   |
+| omada_tar_folder        | Automatic  | Determined from the `omada_tar_src` variable                                                | Automatic            |
+| omada_cluster           | `false`    | Boolean, configure Omada SDN to run in cluster mode                                         | No                   |
+| omada_cluster_init      | `false`    | Boolean, initialize the Omada cluster                                                       | No                   |
+| omada_cluster_user      | `null`     | Username for Omada cluster                                                                  | Yes\* - init cluster |
+| omada_cluster_password  | `null`     | Passwords must be 8-64 alphanumeric characters with upper & lower case letters, and numbers | Yes\* - init cluster |
+| omada_non_root          | `true`     | Boolean, configure Omada SDN to run as a non-root user                                      | No                   |
+| omada_remove_tar_folder | `false`    | Boolean, remove the temporary directory on the remote host                                  | No                   |
 
 OS specific variables are listed below, along with default values (see `vars/main.yml`):
 

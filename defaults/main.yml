@@ -5,15 +5,7 @@ omada_tar_src_remote: true
 omada_tar_dir: /var/tmp
 omada_cluster: false
 omada_cluster_init: false
-omada_cluster_nodes:
-  - name: node1
-    ipv4: null
-    role: mixed # mixed or service
-  - name: node2
-    ipv4: null
-    role: mixed
-  - name: node3
-    ipv4: null
-    role: mixed
+omada_cluster_user: null
+omada_cluster_password: null
 omada_non_root: true
 omada_remove_tar_folder: false
