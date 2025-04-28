@@ -23,7 +23,7 @@ on:
         type: string
 jobs:
   molecule:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     continue-on-error: ${{ inputs.experimental }}
     env:
       PY_COLORS: "1"
