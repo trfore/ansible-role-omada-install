@@ -31,8 +31,8 @@ ansible-galaxy role install trfore.omada_install
 - MongoDB Community: `7.0.x`
 - Omada SDN: `5.x.x`
 - CentOS Stream 9
-- Debian 11
-- Ubuntu 20.04 & 22.04
+- Debian 11 & 12
+- Ubuntu 22.04
 
 ## Requirements
 
