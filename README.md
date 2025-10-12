@@ -51,12 +51,6 @@ ansible-galaxy role install trfore.omada_install
     - name: trfore.omada_install
   ```
 
-- NOTE: For **Ubuntu 20.04** targets, this role installs **OpenJDK 17**. While `jsvc` is available via APT, it is `< 1.1.0` and will **only work with OpenJDK 8**. If you prefer to use this older version, set `omada_dependencies` to the following in your playbook (see 'Example Playbooks' section below):
-
-  ```yaml
-  omada_dependencies: ["curl", "openjdk-8-jre-headless", "jsvc"]
-  ```
-
 ## Role Variables
 
 Available variables are listed below, along with default values (see `defaults/main.yml`):
@@ -128,6 +122,15 @@ OS specific variables are listed below, along with default values (see `vars/mai
     - name: Install Omada SDN
       role: trfore.omada_install
 ```
+
+## Depreciation Notice
+
+- **Currently the role still has the ability to install onto Ubuntu 20.04 systems using the method below, however, given 20.04 is EOL this feature will be removed in a future major release and is no longer tested.**
+- NOTE: For **Ubuntu 20.04** targets, this role installs **OpenJDK 17**. While `jsvc` is available via APT, it is `< 1.1.0` and will **only work with OpenJDK 8**. If you prefer to use this older version, set `omada_dependencies` to the following in your playbook (see 'Example Playbooks' section below):
+
+  ```yaml
+  omada_dependencies: ["curl", "openjdk-8-jre-headless", "jsvc"]
+  ```
 
 - If you would like to install OpenJDK JRE 8 and jsvc using APT (Ubuntu 20.04 Only)
 
