@@ -21,22 +21,25 @@ tox list
 tox -e lint run
 
 # run a specific test environment
-tox -e py-ansible2.16-ubuntu20-default run
+tox -e py3.11-ansible2.19-ubuntu20-default run
 
 # run all test in parallel
 tox run-parallel
 
+# run a group of test
+tox -f ubuntu run-parallel
+
 # pass Ansible Molecule args via Tox
-tox -e py-ansible2.16-ubuntu20-default run -- test --destroy=never
+tox -e py3.11-ansible2.19-ubuntu22-default run -- test --destroy=never
 ```
 
 - For iterative development and testing, the tox molecule environments are written to accept `molecule` arguments. This allows for codebase changes to be tested as you write across multiple distros and versions of `ansible-core`.
 
 ```sh
 # molecule converge
-tox -e py-ansible2.16-ubuntu20-default run -- converge -s default
+tox -e py3.11-ansible2.19-ubuntu22-default run -- converge -s default
 # molecule test w/o destroying the container
-tox -r -e py-ansible2.16-ubuntu20-jre8 -- test -s ubuntu20-jre8 --destroy=never
+tox -e py3.11-ansible2.19-ubuntu22-root -- test -s root-user --destroy=never
 ```
 
 ## Additional References

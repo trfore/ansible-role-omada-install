@@ -27,7 +27,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        distro: [debian11, ubuntu2004, ubuntu2204] # limited by MongoDB 7 matrix
+        distro: [debian11, debian12, ubuntu2204] # limited by MongoDB 7 matrix
         experimental: [false]
         molecule_scenario: ["-s default", "-s root-user"]
         include:
