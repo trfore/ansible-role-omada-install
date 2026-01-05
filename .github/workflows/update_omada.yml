@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out codebase
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Get latest Omada SDN URL
         id: omada_url
@@ -55,7 +55,7 @@ jobs:
 
       - name: Create pull request
         if: env.UPDATE_VERSION_FILE
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.WORKFLOW_TOKEN }}
           commit-message: update omada version to ${{ steps.omada_url.outputs.latest_version }}
